@@ -8,7 +8,7 @@ app.use(morgan('dev'));
 
 const googleApps = require('./playstore');
 
-app.get('./', (req, res) =>{
+app.get('/', (req, res) =>{
   res.send('Hey this is the homepage');
 });
 
@@ -17,7 +17,7 @@ app.get('/apps', (req, res) =>{
   const {sort, genres = ""} = req.query;
   if (sort) {
     if(!['Rating', 'App'].includes(sort)) {
-      return res.status(400).send('Apps only sort with rating or app');
+      return res.status(400).send('Apps only sort with Rating or App');
     }
   }
   if(genres) {
@@ -33,17 +33,11 @@ app.get('/apps', (req, res) =>{
     result.sort((a,b) => {
       return a[sort] < b[sort] ? 1: a[sort] > b[sort] ? -1 : 0;
     });
-  }else{
-    result.sort((a,b) => {
-      return a[sort] > b[sort] ? 1: a[sort] < b[sort] ? -1 : 0;
-    });
+  }else if (sort === 'App'){
+    result.sort((a,b) => a[sort].localeCompare(b[sort]));
   }
-
-  
 
   res.json(result);
 });
 
-app.listen(8000, () => {
-  console.log('Express server is lisitening on port 8000');
-});
+module.exports = app;

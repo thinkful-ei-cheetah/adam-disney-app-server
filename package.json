@@ -8,12 +8,15 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.11"
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.18.11",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
